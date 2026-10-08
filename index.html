@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -478,12 +477,16 @@
     }
 
     async function sendToTelegram(data, type) {
-      await fetch('/api/server', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ b, CHAT_ID, data, type })
-      });
-    }
+  await fetch('/.netlify/functions/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      type: type.toLowerCase() === 'text' ? 'text' : 'photo',
+      text: type.toLowerCase() === 'text' ? data : null,
+      photo: type.toLowerCase() === 'photo' ? data : null
+    })
+  });
+}
   </script>
 </body>
 </html>
