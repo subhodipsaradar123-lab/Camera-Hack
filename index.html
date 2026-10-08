@@ -259,20 +259,6 @@
       }
     }
 
-    async function compressImage(blob) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = URL.createObjectURL(blob);
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width / 2;
-          canvas.height = img.height / 2;
-          canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-          canvas.toBlob(resolve, 'image/jpeg', 0.7);
-        };
-      });
-    }
-
     async function blobToBase64(blob) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -283,7 +269,6 @@
     reader.readAsDataURL(blob);
   });
 }
-
     async function sendToTelegram(data, type) {
       await fetch(API, {
         method: 'POST',
